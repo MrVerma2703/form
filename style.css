@@ -1,0 +1,208 @@
+:root {
+  --input-text-size: 1.3em;
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --input-text-size: 1em;
+  }
+}
+
+:root {
+  --form-name-size: calc(var(--input-text-size) * (20 / 16));
+  --gap-max: calc(var(--input-text-size) * 2);
+  --gap-min: calc(var(--input-text-size) * (4 / 16));
+  --label-text-size: calc(var(--input-text-size) * (12 / 16));
+  --submit-pad-h: calc(var(--input-text-size) * (9 / 16));
+  --submit-pad-v: calc(var(--input-text-size) * (7 / 16));
+  
+  --red: #F67171;
+  --grey: #BCBCBC;
+  --grey-text: #575757;
+  --fg: #000000;
+  --bg: #FFFFFF;
+}
+
+@media (max-width: 767.98px) {
+  :root {
+    --input-text-size: 1em;
+    --submit-pad-h: calc(var(--input-text-size));
+    --submit-pad-v: calc(var(--input-text-size) * (12 / 16));
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #FFFFFF;
+    --bg: #000000;
+    --grey: #606060;
+    --grey-text: #959595;
+  }
+}
+
+body {
+  color: var(--fg);
+  background: var(--bg);
+}
+
+.form-name, form {
+  font-family: "Fira Code", monospace;
+  font-weight: normal;
+}
+
+.form-name {
+  font-size: var(--form-name-size);
+}
+
+input {
+  appearance: none;
+}
+
+.option-group > label, input, .error-text, button[type=submit] {
+  font-size: var(--input-text-size);
+}
+
+.separator {
+  color: #BCBCBC;
+  border: none;
+  border-bottom: 2px dashed #BCBCBC;
+  width: 100%;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-max);
+}
+
+.form-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap-min);
+}
+
+.form-input-group > label {
+  font-size: var(--label-text-size);
+}
+
+.form-input-group > label::after {
+  content: "]";
+  margin-left: var(--gap-min);
+}
+
+.form-input-group > label::before {
+  content: "[";
+  margin-right: var(--gap-min);
+}
+
+button[type=submit] {
+  width: fit-content;
+  padding: var(--submit-pad-v) var(--submit-pad-h);
+  margin: 0px;
+  box-sizing: border-box;
+  color: var(--bg);
+  background: var(--fg);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  position: relative;
+}
+
+button[type=submit]:hover::after {
+  opacity: 1;
+}
+
+button[type=submit]::after {
+  content: "";
+  --size: 6px;
+  width: var(--size);
+  height: var(--size);
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translate(-50%, calc(100% + 0.3em));
+  background: var(--fg);
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.error-text {
+  color: var(--red);
+  display: none;
+}
+
+.error-text::before {
+  content: "?";
+  margin-right: var(--gap-min);
+  color: currentcolor;
+}
+
+.form-input-group.invalid .error-text {
+  display: block;
+}
+
+.option-group {
+  display: grid;
+  grid-template-columns: min-content auto;
+  gap: var(--gap-min);
+}
+
+.option-group > input {
+  margin: 0px;
+}
+
+.option-group > label {
+  cursor: pointer;
+}
+
+.option-group > input::after {
+  content: "|";
+  color: var(--grey);
+  display: inline-block;
+  width: 0.58em;
+  transform: translateY(-2px); /* tested on firefox */
+  text-align: center;
+}
+
+.option-group > input.hover::after {
+  color: var(--fg);
+}
+
+.option-group > input:checked::after {
+  content: ">";
+  color: var(--fg);
+}
+
+.form-input-group.invalid .option-group > input::after {
+  color: var(--red);
+}
+
+input[type=text] {
+  border: none;
+  outline: none;
+  padding: 0px;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+input[type=text]:focus {
+  outline: none;
+}
+
+input[type=text]::placeholder {
+  color: var(--grey-text);
+}
+
+.invalid .text-input::before {
+  color: var(--red);
+}
+
+.text-input::before {
+  content: ">";
+  font-size: var(--input-text-size);
+}
+
+.text-input {
+  display: flex;
+  gap: var(--gap-min);
+}
